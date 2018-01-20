@@ -3,13 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements Transformable
 {
-    use TransformableTrait, Notifiable;
+    use TransformableTrait, Notifiable, HasApiTokens;
 
     protected $table = 'users';
     /**
