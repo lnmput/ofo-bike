@@ -11,5 +11,10 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  */
 interface UserRepository extends RepositoryInterface
 {
-    //
+    /**
+     * 根据 username 自动判断查找用户
+     * @param $username
+     * @return mixed
+     */
+    public function findByUserName($username);
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Repositories\UserRepository;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Prettus\Repository\Contracts\Transformable;
@@ -62,5 +63,17 @@ class User extends Authenticatable implements Transformable
             'user_id',
             'bike_id')
             ->withTimestamps();
+    }
+
+
+    /**
+     * 多类型账号的自动判断
+     * @param $username
+     * @return mixed
+     */
+    public function findForPassport($username) {
+
+        return app(UserRepository::class)->findByUserName($username);
+
     }
 }

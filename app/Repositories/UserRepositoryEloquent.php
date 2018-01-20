@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Criteria\HasFieldCriteria;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Repositories\UserRepository;
@@ -44,5 +45,19 @@ class UserRepositoryEloquent extends BaseRepository implements UserRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-    
+
+    public function findByUserName($username)
+    {
+
+        if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
+            return $this->pushCriteria(new HasFieldCriteria('email', $username))->first();
+        } elseif (is_numeric($username)) {
+            return $this->pushCriteria(new HasFieldCriteria('mobile', $username))->first();
+        } else {
+            return $this->pushCriteria(new HasFieldCriteria('name', $username))->first();
+        }
+
+
+    }
+
 }
